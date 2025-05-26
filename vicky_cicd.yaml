@@ -3,7 +3,7 @@ name: Deploy to my EC2 Server
 on:
   push:
     branches:
-      - main  # or your preferred branch
+      - master 
 
 jobs:
   deploy:
