@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Run remote command
-        run: ssh -o StrictHostKeyChecking=no ubuntu@<your-ip> "ls -la"
+        run: ssh -o StrictHostKeyChecking=no ubuntu@18.188.100.51 "ls -la"
 
       - name: Deploy to server
         uses: webfactory/ssh-agent@v0.9.0
