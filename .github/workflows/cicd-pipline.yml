@@ -20,7 +20,7 @@ jobs:
           echo "EC2 Port: ${{ secrets.EC2_PORT }}"
 
       - name: Start SSH agent and add private key
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: appleboy/ssh-action@v0.1.10
         with:
           ssh-private-key: ${{ secrets.PRIVATE_EC2_KEY }}
       - name: Confirm key was added to SSH agent
