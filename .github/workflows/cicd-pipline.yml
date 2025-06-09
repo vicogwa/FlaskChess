@@ -12,19 +12,15 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Run remote command
-        run: ssh -o StrictHostKeyChecking=no ubuntu@18.188.100.51 "ls -la"
 
-      - name: Deploy to server
+      - name: Set up SSH key
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          port: ${{ secrets.EC2_PORT}}
-          script: |
-            cd /home/ubuntu
-            ls
+          ssh-private-key: ${{ secrets.EC2_KEY }}
+
+      - name: Run remote command
+        run: ssh -o StrictHostKeyChecking=no -p ${{ secrets.EC2_PORT }} ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "cd /home/ubuntu && ls"
+
 
 
           
