@@ -19,18 +19,17 @@ jobs:
           echo "EC2 User: ${{ secrets.EC2_USER }}"
           echo "EC2 Port: ${{ secrets.EC2_PORT }}"
 
-      - name: Start SSH agent and add private key
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
-          ssh-private-key: ${{ secrets.PRIVATE_EC2_KEY }}
-      - name: Confirm key was added to SSH agent
-        run: ssh-add -l  
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.PRIVATE_EC2_KEY }}
+          port: ${{ secrets.EC2_PORT }}
+          script: |
+            cd /home/ubuntu
+            ls -la
 
-      - name: Run remote command with SSH debug
-        run: |
-          ssh -v -o StrictHostKeyChecking=no -p ${{ secrets.EC2_PORT }} \
-            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
-            "cd /home/ubuntu && ls -la"
 
 
 
