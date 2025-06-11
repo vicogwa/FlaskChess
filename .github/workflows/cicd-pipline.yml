@@ -27,8 +27,15 @@ jobs:
           key: ${{ secrets.PRIVATE_EC2_KEY }}
           port: ${{ secrets.EC2_PORT }}
           script: |
-            cd /home/ubuntu
-            ls -la
+            cd /var/www/flask_app
+            git pull origin master
+            source venv/bin/activate
+            
+            pip install -r requirements.txt
+            deactivate
+            sudo systemctl daemon-reexec
+            sudo systemctl daemon-reload
+            sudo systemctl restart flask_app.service
 
 
 
